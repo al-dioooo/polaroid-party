@@ -85,7 +85,7 @@ export default function Index() {
                                 </svg>
                             </div>
                         </div>
-                        <h1 className="md:text-[8rem] xl:text-[10rem] font-branch text-stone-700">it's your</h1>
+                        <h1 className="md:text-[8rem] xl:text-[10rem] font-branch text-stone-700">it&apos;s your</h1>
                         <h3 className="md:-mt-20 xl:-mt-24 text-right text-stone-500 md:text-[6rem] xl:text-9xl font-script">birthday!</h3>
                     </div>
                     <div className="w-full md:mt-0 xl:mt-8">
