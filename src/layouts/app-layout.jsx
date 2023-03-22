@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion"
 import Head from "next/head"
 
 export default function AppLayout({ title, overrideTitle, ...props }) {
@@ -8,9 +9,11 @@ export default function AppLayout({ title, overrideTitle, ...props }) {
             <Head>
                 <title>{overrideTitle ? title : title + ' — ' + appName}</title>
             </Head>
-            <div>
-                {props.children}
-            </div>
+            <AnimatePresence mode="wait">
+                <div>
+                    {props.children}
+                </div>
+            </AnimatePresence>
         </div>
     )
 }

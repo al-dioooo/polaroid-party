@@ -2,19 +2,19 @@
 
 @font-face {
     font-family: "Argesta";
-    src: url("fonts/argesta-display-regular.otf");
+    src: url("/fonts/argesta-display-regular.otf");
     format: "embedded-opentype";
 }
 
 @font-face {
     font-family: "Branch";
-    src: url("fonts/branch.otf");
+    src: url("/fonts/branch.otf");
     format: "embedded-opentype";
 }
 
 @font-face {
     font-family: "Autography";
-    src: url("fonts/autography.otf");
+    src: url("/fonts/autography.otf");
     format: "embedded-opentype";
 }
 
@@ -25,4 +25,57 @@
 .bg-xoxo {
     background-color: #ffffff;
     background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%23d6d3d1' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Make clicks pass-through */
+#nprogress {
+    @apply pointer-events-none;
+}
+
+#nprogress .bar {
+    @apply bg-neutral-900 fixed z-[1031] top-0 left-0 w-full h-[2px];
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+    @apply absolute right-0 block w-24 h-full -translate-y-1 rotate-3;
+    box-shadow: 0 0 10px #ef4444, 0 0 5px #ef4444;
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+    @apply fixed block z-[1031] top-4 left-4;
+}
+
+#nprogress .spinner-icon {
+    @apply box-border w-4 h-4 border-2 border-transparent rounded-full border-l-neutral-900 border-t-neutral-900;
+
+    -webkit-animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+    @apply relative overflow-hidden;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+    @apply absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes nprogress-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

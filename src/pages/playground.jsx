@@ -43,7 +43,7 @@ export default function Playground() {
 
     return (
         <AppLayout title="Playground" overrideTitle={false}>
-            <div className="relative flex h-screen bg-xoxo">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative flex h-screen bg-xoxo">
                 <div className="absolute inset-x-0 top-0 z-50 flex items-center justify-center pt-4 text-xs pointer-events-none">
                     <div className="flex items-center px-4 py-2 space-x-2">
                         <span className="flex items-center">Playground</span>
@@ -51,14 +51,14 @@ export default function Playground() {
                         <span>Polaroid Party</span>
                     </div>
                 </div>
-                <div ref={dragConstraints} className="relative grid w-full grid-cols-2 gap-2 mx-8 my-16 md:mx-16 md:grid-cols-4 md:gap-8 lg:grid-cols-6 h-min">
+                <div ref={dragConstraints} className="relative grid w-full grid-cols-2 gap-2 mx-8 my-16 md:mx-16 md:grid-cols-4 md:gap-8 lg:grid-cols-6">
                     {polaroids.map((row) => (
                         <motion.div whileTap={{ scale: .95}} drag dragConstraints={dragConstraints} key={row.id} className="self-start justify-self-center p-2 w-32 md:w-40 xl:w-44 ring ring-stone-200 ring-opacity-25 ring-inset rounded-2xl aspect-[4/5] bg-stone-300 bg-opacity-25 backdrop-blur-sm cursor-grab hover:active:cursor-grabbing">
                             <img src={row.src} className="w-full bg-white rounded-lg pointer-events-none aspect-square" />
                         </motion.div>
                     ))}
                 </div>
-            </div>
+            </motion.div>
         </AppLayout>
     )
 }
