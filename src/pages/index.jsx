@@ -20,7 +20,7 @@ const colors = [
         code: "charcoal",
         name: "Charcoal",
         background: "bg-stone-700",
-        src: "/img/charcoal.jpg",
+        src: "/img/cc.jpg",
         shadow: "bg-stone-900"
     },
     {
