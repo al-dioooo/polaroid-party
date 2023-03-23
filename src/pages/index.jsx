@@ -6,32 +6,43 @@ import { CameraHeart, CloudDownload, Confetti, StyledArrowUp } from "@/component
 import { Heart } from "@/components/icons/solid"
 import { useEffect, useRef, useState } from "react"
 import { getBoundingBox } from "@/helpers/clip-path"
+import { saveAs } from "file-saver"
 
 const colors = [
     {
         code: "pearl",
         name: "Pearl",
-        background: "bg-stone-100"
+        background: "bg-stone-100",
+        src: "/img/pearl.jpg",
+        shadow: "bg-yellow-900"
     },
     {
         code: "charcoal",
         name: "Charcoal",
-        background: "bg-stone-700"
+        background: "bg-stone-700",
+        src: "/img/charcoal.jpg",
+        shadow: "bg-stone-900"
     },
     {
         code: "lemonade",
         name: "Lemonade",
-        background: "bg-red-100"
+        background: "bg-red-100",
+        src: "/img/lemonade.jpg",
+        shadow: "bg-red-900"
     },
     {
         code: "sky",
         name: "Sky",
-        background: "bg-blue-100"
+        background: "bg-blue-100",
+        src: "/img/sky.jpg",
+        shadow: "bg-sky-900"
     },
     {
         code: "periwinkle",
         name: "Periwinkle",
-        background: "bg-violet-100"
+        background: "bg-violet-100",
+        src: "/img/periwinkle.jpg",
+        shadow: "bg-violet-900"
     }
 ]
 
@@ -41,8 +52,11 @@ export default function Index() {
     const heroImage = useRef(null)
 
     const [color, setColor] = useState("pearl")
+    const [shadow, setShadow] = useState("bg-yellow-900")
     const [backgroundWidth, setBackgroundWidth] = useState(0)
     const [backgroundHeight, setBackgroundHeight] = useState(0)
+
+    const [imageBackground, setImageBackground] = useState('/img/pearl.jpg')
 
     useEffect(() => {
         getBoundingBox(blob)
@@ -50,6 +64,20 @@ export default function Index() {
         setBackgroundWidth(heroImage.current.offsetWidth)
         setBackgroundHeight(heroImage.current.offsetHeight)
     }, [])
+
+    useEffect(() => {
+        const colorData = colors.find((row) => row.code === color)
+
+        setImageBackground(colorData.src)
+        setShadow(colorData.shadow)
+    }, [color])
+
+    const downloadCard = () => {
+        saveAs(
+            "/birthday-card.pdf",
+            "birthday-card.pdf"
+        )
+    }
 
     return (
         <AppLayout title="It's Your Fifteenth Birthday" overrideTitle={false}>
@@ -109,18 +137,18 @@ export default function Index() {
                         </div>
                     </div>
                     <div className="flex items-center w-full mt-16 mb-16 space-x-8 md:mb-0">
-                        <Link href="/playground" className="flex items-center py-2 pl-6 pr-2 space-x-4 text-white rounded-full md:text-sm xl:text-base bg-stone-600">
+                        <Link href="/playground" className="flex items-center py-2 pl-6 pr-2 space-x-4 text-white transition duration-500 rounded-full hover:active:scale-90 group md:text-sm xl:text-base bg-stone-600">
                             <span>Playground</span>
-                            <span className="flex items-center justify-center p-2 border rounded-full border-stone-400">
+                            <span className="flex items-center justify-center p-2 transition duration-500 border rounded-full group-hover:scale-110 border-stone-400">
                                 <CameraHeart className="w-4 h-4" stroke={1.5} />
                             </span>
                         </Link>
-                        <Link href="" className="flex items-center space-x-4 md:text-sm xl:text-base">
+                        <button onClick={downloadCard} className="flex items-center space-x-4 transition duration-500 hover:active:scale-90 group md:text-sm xl:text-base">
                             <span>Birthday Card</span>
-                            <span className="flex items-center justify-center p-2 border rounded-full">
+                            <span className="flex items-center justify-center p-2 transition duration-500 border rounded-full group-hover:scale-110">
                                 <CloudDownload className="w-4 h-4" stroke={1.5} />
                             </span>
-                        </Link>
+                        </button>
                     </div>
                 </div>
                 <div className="relative flex w-full px-6 pt-12 mb-24 md:mb-0 md:h-screen md:px-12 md:w-1/2 bg-gradient-to-b from-stone-50 via-stone-50 to-transparent" style={{ minHeight: backgroundHeight }}>
@@ -135,9 +163,9 @@ export default function Index() {
                         <div className="relative z-20 flex w-full px-8 h-max md:px-0 top-16 md:inset-0">
                             <div className="absolute inset-x-8 md:inset-0 scale-[1.02] z-20 bg-gradient-to-b from-stone-300 via-transparent to-transparent" style={{ clipPath: "url(#blob)", width: backgroundWidth, height: backgroundHeight }}></div>
                             <div ref={heroImage} className="z-20 flex w-full aspect-square h-max" style={{ clipPath: "url(#blob)" }}>
-                                <motion.img initial={{ scale: 1.05, y: 0 }} animate={{ scale: 1.05, y: -5 }} transition={{ type: "tween", ease: "easeInOut", repeat: Infinity, repeatType: "reverse", duration: 3 }} className="object-cover w-full h-full filter" src="/img/baby.png" alt="" />
+                                <motion.img initial={{ scale: 1.05, y: 0 }} animate={{ scale: 1.05, y: -5 }} transition={{ type: "tween", ease: "easeInOut", repeat: Infinity, repeatType: "reverse", duration: 3 }} className="object-cover w-full h-full filter" src={imageBackground} alt="" />
                             </div>
-                            <motion.div initial={{ opacity: 1 }} animate={{ opacity: .5 }} transition={{ type: "tween", ease: "easeInOut", repeat: Infinity, repeatType: "reverse", repeatDelay: 1, duration: 3 }} className="absolute z-10 w-48 h-48 bg-yellow-900 rounded-full blur-xl bg-opacity-30 -top-4 right-12"></motion.div>
+                            <motion.div initial={{ opacity: 1 }} animate={{ opacity: .5 }} transition={{ type: "tween", ease: "easeInOut", repeat: Infinity, repeatType: "reverse", repeatDelay: 1, duration: 3 }} className={`${shadow} absolute z-10 w-48 h-48 rounded-full blur-xl bg-opacity-30 -top-4 right-12`}></motion.div>
                         </div>
                     </div>
                 </div>
